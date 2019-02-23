@@ -32,7 +32,7 @@ bool Stack::isempty(){
   else{return false;}
 }
 bool Stack::isfull(){
-  if(top == MAX-2){return true;}
+  if(top == MAX-1){return true;}
   else{return false;}
 }
 int Stack::peek(){
@@ -43,30 +43,48 @@ int Stack::peek(){
 class StackSet{
   public:
     list<Stack> stacks;
+    Stack last;
     bool push(int d);
     int pop();
+    int peek();
+    StackSet(){
+      last = stacks.back();
+    }
 };
 
+int StackSet::pop(){
+  return stacks.back().pop();
+}
+
+int StackSet::peek(){
+  return stacks.back().peek();
+}
+
 bool StackSet::push(int d){
-  Stack last;
+  //Stack last;
   if(stacks.empty()){
+    Stack first;
     cout << "Stacks is empty, creat a new stack." << endl;
-    last.push(d);
-    stacks.push_back(last);
-    cout << "--Push " << d << " to stack " << stacks.size() << endl;
-  }
-  else if(last.isfull()){
-    Stack s;
-    s.push(d);
-    stacks.push_back(s);
-    cout << "Last is full, creat a new stack." << endl;
+    first.push(d);
+    stacks.push_back(first);
     cout << "--Push " << d << " to stack " << stacks.size() << endl;
   }
   else{
-    last.push(d);
-    cout << "Push " << d << " to stack " << stacks.size() << endl;
+    //last = stacks.back();
+    //if(last.isfull()){
+    if(stacks.back().isfull()){
+      Stack new_s;
+      new_s.push(d);
+      stacks.push_back(new_s);
+      cout << "Last is full, creat a new stack." << endl;
+      cout << "--Push " << d << " to stack " << stacks.size() << endl;
+    }
+    else{
+      stacks.back().push(d);
+      cout << "Push " << d << " to stack " << stacks.size() << endl;
+    }
   }
-}
+}  
 
 int main(){
   StackSet s;
