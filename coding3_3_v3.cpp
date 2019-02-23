@@ -43,20 +43,18 @@ int Stack::peek(){
 class StackSet{
   public:
     list<Stack> stacks;
-    Stack last;
     bool push(int d);
     int pop();
     int peek();
-    StackSet(){
-      last = stacks.back();
-    }
 };
 
 int StackSet::pop(){
+  Stack& last = stacks.back();
   return last.pop();
 }
 
 int StackSet::peek(){
+  Stack& last = stacks.back();
   return last.peek();
 }
 
@@ -69,6 +67,7 @@ bool StackSet::push(int d){
     cout << "--Push " << d << " to stack " << stacks.size() << endl;
   }
   else{
+    Stack& last = stacks.back();
     if(last.isfull()){
       Stack new_s;
       new_s.push(d);
