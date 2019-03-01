@@ -10,12 +10,27 @@ class addQueue{
   public:
     void push(int d);
     int pop();
-    //int peek();
+    int peek();
     bool isempty();
 };
 
 void addQueue::push(int d){
   s1.push(d);
+}
+
+int addQueue::peek(){
+  int temp;
+  if(!s2.empty()){
+    temp = s2.top();
+  }
+  else{
+    while(!s1.empty()){
+      s2.push(s1.top());
+      s1.pop();
+    }
+    temp = s2.top();
+  }
+  return temp;
 }
 
 int addQueue::pop(){
@@ -50,9 +65,15 @@ int main(){
   q.push(5);
   q.push(7);
   cout << q.pop() << endl;
+  cout << "top element: " << q.peek() << endl;
   cout << q.pop() << endl;
+  cout << "top element: " << q.peek() << endl;
   q.push(12);
+  cout << "top element: " << q.peek() << endl;
   q.push(21);
+  cout << "top element: " << q.peek() << endl;
   cout << q.pop() << endl;
+  cout << "top element: " << q.peek() << endl;
   cout << q.pop() << endl;
+  cout << "top element: " << q.peek() << endl;
 }
