@@ -48,6 +48,6 @@ Node *bst(int a[], int n){
 
 int main(){
   int n = 8;
-  int a[n] = {31,2,3,4,5,6,7,8};
+  int a[n] = {1,2,3,4,5,6,7,8};
   bst(a, n);
 }
