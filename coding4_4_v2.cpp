@@ -2,7 +2,8 @@
 */
 #include<iostream>
 #include<list>
-#include<vector>
+#include<limits>
+#include <cstdlib>
 using namespace std;
 
 struct Node{
@@ -20,38 +21,19 @@ struct Node* newnode(int data){
 } 
 
 int getHeight(Node *root){
-  if(root == NULL){return 0;}
+  if(root == NULL){return -1;}
   int left_height = getHeight(root->left);
   int right_height = getHeight(root->right);
-  if (left_height > right_height){
-    return left_height + 1;
+  if (abs(left_height - right_height) > 1){
+    return numeric_limits<int>::min();
   }
   else{
-    return right_height + 1;
+    return max(left_height, right_height) + 1;
   }
 }
 
 bool checkBalance(Node *root){
-  if (root == NULL){return true;}
-  else if (root->left == NULL){
-    if (root->right == NULL or getHeight(root->right) == 1){return true;}
-    else {return false;}
-  }
-  else if (root->right == NULL){
-    if (root->left == NULL or getHeight(root->left) == 1){return true;}
-    else {return false;}
-  }
-  else{
-    int left_height = getHeight(root->left);
-    int right_height = getHeight(root->right);
-    if (left_height - right_height > 1 or left_height - right_height < -1){
-      return false;
-    }
-    else{
-      checkBalance(root->left);
-      checkBalance(root->right);
-    }
-  }
+  return getHeight(root) != numeric_limits<int>::min();
 }
   
 int main() 
